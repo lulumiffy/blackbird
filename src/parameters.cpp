@@ -134,6 +134,12 @@ Parameters::Parameters(std::string fileName) {
   quadrigaClientId = getParameter("QuadrigaClientId", configFile);
   quadrigaEnable = getBool(getParameter("QuadrigaEnable", configFile));
 
+  cexioApi = getParameter("CexioApiKey", configFile);
+  cexioSecret = getParameter("CexioSecretKey", configFile);
+  cexioFees = getDouble(getParameter("CexioFees", configFile));
+  cexioClientId = getParameter("CexioClientId", configFile);
+  cexioEnable = getBool(getParameter("CexioEnable", configFile));
+
   sendEmail = getBool(getParameter("SendEmail", configFile));
   senderAddress = getParameter("SenderAddress", configFile);
   senderUsername = getParameter("SenderUsername", configFile);
