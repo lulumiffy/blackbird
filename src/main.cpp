@@ -490,7 +490,7 @@ int main(int argc, char** argv) {
         if (i != j) {
           VenueSpread vs;
           checkVenueSpread(&btcVec[i], &btcVec[j], vs, params);
-          if (vs.spreadIn > 0.5) { // TODO make 0.5 as a param in the conf
+          if (vs.spreadIn > params.venueSpreadTh) { // add VenueSpreadTh=0.08 to blackbird.conf
             vsList.push_back(vs);
           }
           

@@ -19,6 +19,7 @@ struct Parameters {
     std::vector <std::string> tickerUrl;
 
     CURL *curl;
+    double venueSpreadTh;
     double spreadEntry;
     double spreadTarget;
     unsigned maxLength;
