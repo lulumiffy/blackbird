@@ -24,15 +24,12 @@ quote_t getQuote(Parameters &params)
 {
     auto &exchange = queryHandle(params);
     std::string url("/api/ticker/");
-    url += tickerMapping(params.leg1) + "/" + tickerMapping(params.leg2);
-    std::cout << url << std::endl;
+    url += (tickerMapping(params.leg1) + "/" + tickerMapping(params.leg2));
     unique_json root { exchange.getRequest(url) };
+    
+    double bidValue = json_real_value(json_object_get(root.get(), "bid"));
 
-    const char *quote = json_string_value(json_object_get(root.get(), "bid"));
-    auto bidValue = quote ? std::stod(quote) : 0.0;
-
-    quote = json_string_value(json_object_get(root.get(), "ask"));
-    auto askValue = quote ? std::stod(quote) : 0.0;
+    double askValue = json_real_value(json_object_get(root.get(), "ask"));
 
     return std::make_pair(bidValue, askValue);
 }
