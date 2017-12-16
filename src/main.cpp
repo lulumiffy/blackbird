@@ -56,12 +56,14 @@ struct Balance {
 // 'main' function.
 // Blackbird doesn't require any arguments for now.
 int main(int argc, char** argv) {
+  assert(argc == 2 && "Expect conf file path as Input");
+  std::string confPath = argv[1];
   std::cout << "Blackbird Bitcoin Arbitrage" << std::endl;
   std::cout << "DISCLAIMER: USE THE SOFTWARE AT YOUR OWN RISK\n" << std::endl;
   // Replaces the C++ global locale with the user-preferred locale
   std::locale mylocale("");
   // Loads all the parameters
-  Parameters params("blackbird.conf");
+  Parameters params(confPath);
   // Does some verifications about the parameters
   if (!params.demoMode) {
     if (!params.useFullExposure) {
@@ -282,7 +284,7 @@ int main(int argc, char** argv) {
           << "TOTAL_EXPOSURE,BALANCE_BEFORE,BALANCE_AFTER,RETURN"
           << std::endl;
   // Creates the log file where all events will be saved
-  std::string logFileName = "output/blackbird_log_" + currDateTime + ".log";
+  std::string logFileName = "output/blackbird_log_" + params.leg1 + params.leg2 + "_" + currDateTime + ".log";
   std::ofstream logFile(logFileName, std::ofstream::trunc);
   logFile.imbue(mylocale);
   logFile.precision(6);

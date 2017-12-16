@@ -35,7 +35,7 @@ void sendEmail(const std::vector<VenueSpread>& spreads, Parameters &params) {
   oss << "        <td style=\\\"" << tdStyle << "width:70px;\\\">Spread</td>";
   oss << "      </tr>";
 
-  for (int i = 0; i < spreads.size(); i++) {
+  for (unsigned i = 0; i < spreads.size(); i++) {
     VenueSpread res = spreads[i];
     oss << "      <tr>";
     oss << "        <td style=\\\"" << tdStyle << "\\\">"
@@ -57,11 +57,11 @@ void sendEmail(const std::vector<VenueSpread>& spreads, Parameters &params) {
   oss << "  </div>";
   oss << "</html>\" -s " << params.smtpServerAddress << " -xu " << params.senderUsername << " -xp " << params.senderPassword << " -o tls=yes -o message-content-type=html >/dev/null" << std::endl;
 
-    std::cout << oss.str() << std::endl;
-    int rc = system(oss.str().c_str());
-    std::cout << "Return code "<< rc << std::endl;
-  /*if (system(oss.str()) == -1)
-    *params.logFile << "<sendEmail> Error with system call" << std::endl;*/
+  //std::cout << oss.str() << std::endl;
+  int rc = system(oss.str().c_str());
+  //std::cout << "Return code "<< rc << std::endl;
+  if (rc != 0)
+    *params.logFile << "<sendEmail> Error with system call" << std::endl;
 }
 
 void sendEmail(const Result &res, Parameters &params) {
