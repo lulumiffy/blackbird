@@ -404,6 +404,7 @@ int main(int argc, char** argv) {
   bool stillRunning = true;
   time_t currTime;
   time_t diffTime;
+  time_t venueSpreadEmailLastSent = 0;
 
   // Main analysis loop
   while (stillRunning) {
@@ -493,22 +494,26 @@ int main(int argc, char** argv) {
           if (vs.spreadIn > params.venueSpreadTh) { // add VenueSpreadTh=0.08 to blackbird.conf
             vsList.push_back(vs);
           }
-          
+
         }
       }
     }
 
     // vsList will contains all the spread between venue larger than 0.5
     // TODO send via email
-
     for (unsigned i = 0; i < vsList.size(); i++) {
-      VenueSpread vs = vsList[i];
+      VenueSpread& vs = vsList[i];
       std::cout << "Buy   at: " << vs.priceLongIn  << " on " << vs.exchNameLong << ";" << std::endl;
       std::cout << "Sell  at: " << vs.priceShortIn << " on " << vs.exchNameShort << ";" << std::endl;
       std::cout << "Spread  : " << vs.spreadIn << ";" << std::endl;
     }
 
-
+    time_t vsCurrentTime = mktime(&timeinfo);
+    double sinceLastSent = difftime(vsCurrentTime, venueSpreadEmailLastSent);
+    if (vsList.size() > 0 && sinceLastSent > params.venueSpreadEmailInterval ) {
+      sendEmail(vsList, params);
+      venueSpreadEmailLastSent = vsCurrentTime;
+    }
 
     // Looks for arbitrage opportunities on all the exchange combinations
     if (!inMarket) {

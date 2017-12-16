@@ -72,7 +72,8 @@ Parameters::Parameters(std::string fileName) {
   }
 
   venueSpreadTh = getDouble(getParameter("VenueSpreadTh", configFile));
-
+  venueSpreadEmailInterval = getDouble(getParameter("VenueSpreadEmailInterval",
+                                                   configFile));
   spreadEntry = getDouble(getParameter("SpreadEntry", configFile));
   spreadTarget = getDouble(getParameter("SpreadTarget", configFile));
   maxLength = getUnsigned(getParameter("MaxLength", configFile));

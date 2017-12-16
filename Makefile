@@ -1,11 +1,11 @@
 # Blackbird Bitcoin Arbitrage Makefile
 
-override INC_DIR += -I ./src -I ./extern/sqlite3/include
+override INC_DIR += -I ./src -I ./extern/sqlite3/include -I /usr/local/Cellar/openssl/1.0.2n/include
 override LIB_DIR += -L .
 CFLAGS   := -std=c99
 CXXFLAGS := -Wall -pedantic -std=c++11 -Wno-missing-braces
-LDFLAGS  := 
-LDLIBS   := -lsqlite3 -lcrypto -ljansson -lcurl
+LDFLAGS  :=  -L/usr/local/Cellar/openssl/1.0.2n/lib
+LDLIBS   :=  -lssl lcrypto -lsqlite3 -lcrypto -ljansson -lcurl
 CC       := gcc
 
 

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 project(blackbird)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+
 include(cotire)
 
 find_package(CURL)
@@ -27,12 +28,16 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
                                       CXX_STANDARD 11
                                       CXX_STANDARD_REQUIRED YES
                                       CXX_EXTENSIONS NO)
+
 target_include_directories (${PROJECT_NAME} PRIVATE
                             ${PROJECT_SOURCE_DIR}/src
                             ${SQLITE3_INCLUDE_DIR}
                             ${CURL_INCLUDE_DIR}
                             ${OPENSSL_INCLUDE_DIR}
                             ${JANSSON_INCLUDE_DIR})
+
+link_directories(${OPENSSL_LIBRARIES})
+
 target_link_libraries(${PROJECT_NAME} ${CURL_LIBRARIES}
                                       ${JANSSON_LIBRARIES}
                                       ${OPENSSL_LIBRARIES}

@@ -16,7 +16,6 @@ struct VenueSpread {
   double feesLong;
   double feesShort;
   std::time_t entryTime;
-  std::time_t exitTime;
   std::string exchNameLong;
   std::string exchNameShort;
   double priceLongIn;

@@ -3,6 +3,9 @@
 
 struct Result;
 struct Parameters;
+struct VenueSpread;
+
+void sendEmail(const std::vector<VenueSpread>& spreads, Parameters &params);
 
 // After a trade is done, sends an email with the details
 // of the results.

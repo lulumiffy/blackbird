@@ -38,4 +38,8 @@ void checkVenueSpread(Bitcoin* btcLong, Bitcoin* btcShort, VenueSpread& res, Par
   res.priceLongIn = priceLong;
   res.priceShortIn = priceShort;
 
+  time_t rawtime = time(nullptr);
+  tm timeinfo = *localtime(&rawtime);
+  res.entryTime = mktime(&timeinfo);
+
 }

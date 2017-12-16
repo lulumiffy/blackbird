@@ -20,6 +20,7 @@ struct Parameters {
 
     CURL *curl;
     double venueSpreadTh;
+    double venueSpreadEmailInterval;
     double spreadEntry;
     double spreadTarget;
     unsigned maxLength;
