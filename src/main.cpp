@@ -1,10 +1,12 @@
 #include "bitcoin.h"
 #include "result.h"
+#include "venue_spread.h"
 #include "time_fun.h"
 #include "curl_fun.h"
 #include "db_fun.h"
 #include "parameters.h"
 #include "check_entry_exit.h"
+#include "check_venue_spread.h"
 #include "exchanges/bitfinex.h"
 #include "exchanges/okcoin.h"
 #include "exchanges/bitstamp.h"
@@ -479,6 +481,35 @@ int main(int argc, char** argv) {
         }
       }
     }
+
+    //#################################TODO###############################
+    // Looks for opportunities for venue spread
+    std::vector<VenueSpread> vsList;
+    for (int i = 0; i < numExch; ++i) {
+      for (int j = 0; j < numExch; ++j) {
+        if (i != j) {
+          VenueSpread vs;
+          checkVenueSpread(&btcVec[i], &btcVec[j], vs, params);
+          if (vs.spreadIn > 0.5) { // TODO make 0.5 as a param in the conf
+            vsList.push_back(vs);
+          }
+          
+        }
+      }
+    }
+
+    // vsList will contains all the spread between venue larger than 0.5
+    // TODO send via email
+
+    for (unsigned i = 0; i < vsList.size(); i++) {
+      VenueSpread vs = vsList[i];
+      std::cout << "Buy   at: " << vs.priceLongIn  << " on " << vs.exchNameLong << ";" << std::endl;
+      std::cout << "Sell  at: " << vs.priceShortIn << " on " << vs.exchNameShort << ";" << std::endl;
+      std::cout << "Spread  : " << vs.spreadIn << ";" << std::endl;
+    }
+
+
+
     // Looks for arbitrage opportunities on all the exchange combinations
     if (!inMarket) {
       for (int i = 0; i < numExch; ++i) {
