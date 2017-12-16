@@ -143,6 +143,12 @@ Parameters::Parameters(std::string fileName) {
   cexioClientId = getParameter("CexioClientId", configFile);
   cexioEnable = getBool(getParameter("CexioEnable", configFile));
 
+  binanceApi = getParameter("BinanceApiKey", configFile);
+  binanceSecret = getParameter("BinanceSecretKey", configFile);
+  binanceFees = getDouble(getParameter("BinanceFees", configFile));
+  binanceClientId = getParameter("BinanceClientId", configFile);
+  binanceEnable = getBool(getParameter("BinanceEnable", configFile));
+
   sendEmail = getBool(getParameter("SendEmail", configFile));
   senderAddress = getParameter("SenderAddress", configFile);
   senderUsername = getParameter("SenderUsername", configFile);

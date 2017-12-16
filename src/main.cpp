@@ -18,6 +18,7 @@
 #include "exchanges/poloniex.h"
 #include "exchanges/gdax.h"
 #include "exchanges/cexio.h"
+#include "exchanges/binance.h"
 #include "utils/send_email.h"
 #include "getpid.h"
 
@@ -267,6 +268,19 @@ int main(int argc, char** argv) {
     getLimitPrice[index] = CEXIO::getLimitPrice;
 
     dbTableName[index] = "cexio";
+    createTable(dbTableName[index], params);
+
+    index++;
+  }
+  if (params.binanceEnable &&
+      (params.binanceApi.empty() == false || params.demoMode == true)) {
+    params.addExchange("BINANCE", params.binanceFees, false, true);
+    getQuote[index] = CEXIO::getQuote;
+    getAvail[index] = CEXIO::getAvail;
+    getActivePos[index] = CEXIO::getActivePos;
+    getLimitPrice[index] = CEXIO::getLimitPrice;
+
+    dbTableName[index] = "binance";
     createTable(dbTableName[index], params);
 
     index++;
