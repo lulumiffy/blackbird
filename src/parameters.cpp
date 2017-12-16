@@ -71,6 +71,8 @@ Parameters::Parameters(std::string fileName) {
     exit(EXIT_FAILURE);
   }
 
+  venueSpreadTh = getDouble(getParameter("VenueSpreadTh", configFile));
+
   spreadEntry = getDouble(getParameter("SpreadEntry", configFile));
   spreadTarget = getDouble(getParameter("SpreadTarget", configFile));
   maxLength = getUnsigned(getParameter("MaxLength", configFile));
