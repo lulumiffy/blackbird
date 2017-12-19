@@ -91,6 +91,13 @@ struct Parameters {
     std::string cexioClientId;
     double cexioFees;
     bool cexioEnable;
+
+    std::string binanceApi;
+    std::string binanceSecret;
+    std::string binanceClientId;
+    double binanceFees;
+    bool binanceEnable;
+
     bool sendEmail;
 
     std::string senderAddress;
