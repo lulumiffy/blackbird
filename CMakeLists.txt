@@ -15,6 +15,12 @@ file(GLOB SOURCES
     src/*.cpp
     src/exchanges/*.cpp
     src/utils/*.cpp)
+
+file(GLOB MAIN_FILES
+        src/main*.cpp)
+list(REMOVE_ITEM SOURCES ${MAIN_FILES})
+list(APPEND SOURCES "${CMAKE_SOURCE_DIR}/src/${MAIN}.cpp")
+SET(PROJECT_NAME  ${PROJECT_NAME}_${MAIN})
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
