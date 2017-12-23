@@ -275,10 +275,10 @@ int main(int argc, char** argv) {
   if (params.binanceEnable &&
       (params.binanceApi.empty() == false || params.demoMode == true)) {
     params.addExchange("BINANCE", params.binanceFees, false, true);
-    getQuote[index] = CEXIO::getQuote;
-    getAvail[index] = CEXIO::getAvail;
-    getActivePos[index] = CEXIO::getActivePos;
-    getLimitPrice[index] = CEXIO::getLimitPrice;
+    getQuote[index] = BINANCE::getQuote;
+    getAvail[index] = BINANCE::getAvail;
+    getActivePos[index] = BINANCE::getActivePos;
+    getLimitPrice[index] = BINANCE::getLimitPrice;
 
     dbTableName[index] = "binance";
     createTable(dbTableName[index], params);
